@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MonopolyCSharp.Test
+namespace MonopolyCSharpTest
 {
     [TestClass]
-    public class UnitTest1
+    public class MonopolyTest
     {
         [TestMethod]
         public void TestMethod1()
