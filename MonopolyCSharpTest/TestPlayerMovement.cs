@@ -5,14 +5,16 @@ using MonopolyCSharp;
 namespace MonopolyCSharpTest
 {
     [TestClass]
-    public class PlayerTest
+    public class TestPlayerMovement
     {
         private Player testPlayer;
+        private Monopoly testGame;
 
         [TestInitialize]
         public void Init()
         {
-            testPlayer = new Player();
+            testGame = new Monopoly();
+            testPlayer = new Player(testGame, "Hat");
         }
 
         /// <summary>
