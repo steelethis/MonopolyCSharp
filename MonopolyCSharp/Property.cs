@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace MonopolyCSharp
 {
-    public enum Board
+    public class Property
     {
-
     }
 }

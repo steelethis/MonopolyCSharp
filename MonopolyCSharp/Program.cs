@@ -10,6 +10,7 @@ namespace MonopolyCSharp
     {
         static void Main(string[] args)
         {
+
         }
     }
 }

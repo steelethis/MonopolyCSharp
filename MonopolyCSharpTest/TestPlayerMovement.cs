@@ -7,53 +7,44 @@ namespace MonopolyCSharpTest
     [TestClass]
     public class TestPlayerMovement
     {
-        private Player testPlayer;
-        private Monopoly testGame;
-        private Random testRandom;
+        private Game testGame;
+
+        private const int TEST_PLAYER_ID = 1;
 
         [TestInitialize]
         public void Init()
         {
-            testRandom = new Random();
-            testGame = new Monopoly(testRandom);
-            testPlayer = new Player(testGame, "Hat");
+            testGame = new Game();
+
+            testGame.CreatePlayer(TEST_PLAYER_ID, "testPlayer");
         }
 
         /// <summary>
-        /// Location should equal whatever is passed.
-        /// </summary>
-        [TestMethod]
-        public void TestPlayerUpdateLocation()
-        {
-            testPlayer.UpdateLocation(5);
-
-            Assert.AreEqual(5, testPlayer.Location);
-        }
-
-        /// <summary>
-        /// Player beginning on location 0 and rolls a 7 should end up on location 7 on the board.
+        /// Tests a player's ability to move from location 0.
+        /// Player on beginning location (numbered 0), rolls 7, ends up on location 7
         /// </summary>
         [TestMethod]
         public void TestPlayerMovementFromZero()
         {
-            testPlayer.UpdateLocation(0);
+            int testRoll = 7;
 
-            testPlayer.Move(7);
+            testGame.MovePlayer(testGame.Players[TEST_PLAYER_ID], testRoll);
 
-            Assert.AreEqual(7, testPlayer.Location);
+            Assert.AreEqual(7, testGame.Players[TEST_PLAYER_ID].Location);
         }
 
         /// <summary>
-        /// Player on location 39 that rolls a 6 should end up on location 5 on board.
+        /// Tests to see if player's location can exceed the number of spaces on the board.
+        /// Player on location numbered 39, rolls 6, ends up on location 5
         /// </summary>
         [TestMethod]
-        public void TestPlayerMovementEndOfBoard()
+        public void TestPlayerMovementWrapAround()
         {
-            testPlayer.UpdateLocation(39);
+            int testRoll = 6;
 
-            testPlayer.Move(6);
+            testGame.MovePlayer(testGame.Players[TEST_PLAYER_ID], testRoll);
 
-            Assert.AreEqual(5, testPlayer.Location);
+            Assert.AreEqual(5, testGame.Players[TEST_PLAYER_ID].Location);
         }
     }
 }
