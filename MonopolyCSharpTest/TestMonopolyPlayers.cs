@@ -11,11 +11,13 @@ namespace MonopolyCSharpTest
     public class TestMonopolyPlayers
     {
         private Monopoly testGame;
+        private Random testRandom;
 
         [TestInitialize]
         public void Init()
         {
-            testGame = new Monopoly();
+            testRandom = new Random();
+            testGame = new Monopoly(testRandom);
         }
 
         [TestMethod]
@@ -43,6 +45,13 @@ namespace MonopolyCSharpTest
             Assert.AreEqual(playerCreationList[1], testGame.PlayerList[1].Name);
         }
 
+
+        /// <summary>
+        /// Tests the random player order.
+        /// </summary> 
+        // Originally this test failed because I was recreating the random seed 100 times.
+        // This ended up causing the test to compare different player orders that were generated with different seeds,
+        // resulting in instances where the first player never changed over the course of 100 game creations.
         [TestMethod]
         public void TestPlayerOrder()
         {
@@ -51,7 +60,7 @@ namespace MonopolyCSharpTest
 
             for (int i = 0; i < 100; i++)
             {
-                testGame = new Monopoly();
+                testGame = new Monopoly(testRandom);
                 testGame.CreatePlayers(new List<string>()
                 {
                     "Horse",

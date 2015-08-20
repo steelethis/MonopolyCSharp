@@ -9,11 +9,13 @@ namespace MonopolyCSharpTest
     {
         private Player testPlayer;
         private Monopoly testGame;
+        private Random testRandom;
 
         [TestInitialize]
         public void Init()
         {
-            testGame = new Monopoly();
+            testRandom = new Random();
+            testGame = new Monopoly(testRandom);
             testPlayer = new Player(testGame, "Hat");
         }
 

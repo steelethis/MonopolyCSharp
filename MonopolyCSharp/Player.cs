@@ -15,6 +15,7 @@ namespace MonopolyCSharp
         // Location on game board
         public int Location { get; private set; }
         public string Name { get; private set; }
+        public int TurnIndex { get; set; }
 
         public Player(Monopoly game, string gamePiece)
         {

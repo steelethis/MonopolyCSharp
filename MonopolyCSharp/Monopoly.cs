@@ -15,9 +15,9 @@ namespace MonopolyCSharp
         // Random seed for the game.
         private Random random;
 
-        public Monopoly()
+        public Monopoly(Random random)
         {
-            random = new Random();
+            this.random = random;
             BoardSize = 40;
         }
 
@@ -38,20 +38,17 @@ namespace MonopolyCSharp
 
         public void CreatePlayerOrder()
         {
-            PlayerQueue = new Queue<Player>();
 
-            Dictionary<Player, int> playerRolls = new Dictionary<Player, int>();
-
-            foreach(Player player in PlayerList)
+            foreach (Player player in PlayerList)
             {
-                playerRolls.Add(player, RollDice());
+                player.TurnIndex = TurnRoll();
             }
 
-            // TODO: Sort players by their roll and put them in a queue in that order.
-
+            // LINQ that orders the players within the list by their turn Index.
+            PlayerQueue = new Queue<Player>(PlayerList.OrderBy(x => x.TurnIndex));
         }
 
-        public int RollDice()
+        public int TurnRoll()
         {
             return random.Next(1, 13);
         }
