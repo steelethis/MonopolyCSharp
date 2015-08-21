@@ -8,13 +8,15 @@ namespace MonopolyCSharpTest
     public class TestPlayerMovement
     {
         private Game testGame;
+        private Random random;
 
         private const int TEST_PLAYER_ID = 1;
 
         [TestInitialize]
         public void Init()
         {
-            testGame = new Game();
+            random = new Random();
+            testGame = new Game(random);
 
             testGame.CreatePlayer(TEST_PLAYER_ID, "testPlayer");
         }
@@ -30,7 +32,7 @@ namespace MonopolyCSharpTest
 
             testGame.MovePlayer(testGame.Players[TEST_PLAYER_ID], testRoll);
 
-            Assert.AreEqual(7, testGame.Players[TEST_PLAYER_ID].Location);
+            Assert.AreEqual(7, testGame.Players[TEST_PLAYER_ID].Location.PropertyID);
         }
 
         /// <summary>
@@ -40,11 +42,13 @@ namespace MonopolyCSharpTest
         [TestMethod]
         public void TestPlayerMovementWrapAround()
         {
+            testGame.MovePlayer(testGame.Players[TEST_PLAYER_ID], 39);
+
             int testRoll = 6;
 
             testGame.MovePlayer(testGame.Players[TEST_PLAYER_ID], testRoll);
 
-            Assert.AreEqual(5, testGame.Players[TEST_PLAYER_ID].Location);
+            Assert.AreEqual(5, testGame.Players[TEST_PLAYER_ID].Location.PropertyID);
         }
     }
 }

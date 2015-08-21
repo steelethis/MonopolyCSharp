@@ -8,9 +8,15 @@ namespace MonopolyCSharp
 {
     public class Player
     {
-        public int Location { get; }
+        public Property Location { get; set; }
+        public string Name { get; private set; }
 
-        public Player(int id, string name) { }
+        public Player(string name, Property startingPlace)
+        {
+            Name = name;
+
+            Location = startingPlace;
+        }
 
     }
 }

@@ -8,20 +8,43 @@ namespace MonopolyCSharp
 {
     public class Game
     {
+        private Random random;
+        public const int STARTING_LOCATION = 0;
+        public Dictionary<int, Player> Players { get; private set; }
+        public Dictionary<int, Property> GameBoard { get; private set; } 
 
-        public Dictionary<int, Player> Players;
-
-        public Game() { }
-
-
-        public void CreatePlayer(int testPlayerId, string testplayer)
+        public Game(Random random)
         {
-            throw new NotImplementedException();
+            this.random = random;
+
+            Players = new Dictionary<int, Player>();
+            GameBoard = new Dictionary<int, Property>();
+            CreateBoard();
         }
 
-        public void MovePlayer(Player player, int testRoll)
+        private void CreateBoard()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < 40; i++)
+            {
+                GameBoard[i] = new Property(i, $"Space {i}");
+            }
+        }
+
+        public void CreatePlayer(int playerID, string playerName)
+        {
+            Players[playerID] = new Player(playerName, GameBoard[STARTING_LOCATION]);
+        }
+
+        public void MovePlayer(Player player, int roll)
+        {
+            int newLocation = player.Location.PropertyID + roll;
+
+            // If the new location is greater than the max board size
+            // Subtract the max board size from the location.
+            // Otherwise, leave it alone.
+            newLocation = newLocation >= GameBoard.Count ? 
+                newLocation - GameBoard.Count : newLocation;
+            player.Location = GameBoard[newLocation];
         }
     }
 }
