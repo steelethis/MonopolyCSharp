@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestPlayerMovement.cs" />
+    <Compile Include="TestPlayerSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MonopolyCSharp\MonopolyCSharp.csproj">

@@ -9,7 +9,11 @@ namespace MonopolyCSharp
     public class Game
     {
         private Random random;
+
         public const int STARTING_LOCATION = 0;
+        public const int MIN_PLAYERS = 2;
+        public const int MAX_PLAYERS = 8;
+
         public Dictionary<int, Player> Players { get; private set; }
         public Dictionary<int, Property> GameBoard { get; private set; } 
 
@@ -45,6 +49,14 @@ namespace MonopolyCSharp
             newLocation = newLocation >= GameBoard.Count ? 
                 newLocation - GameBoard.Count : newLocation;
             player.Location = GameBoard[newLocation];
+        }
+
+        public bool Start()
+        {
+            if(Players.Count < MIN_PLAYERS || Players.Count > MAX_PLAYERS)
+                return false;
+
+            return true;
         }
     }
 }
