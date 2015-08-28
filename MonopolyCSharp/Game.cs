@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,11 @@ namespace MonopolyCSharp
         public const int STARTING_LOCATION = 0;
         public const int MIN_PLAYERS = 2;
         public const int MAX_PLAYERS = 8;
+        public const int MAX_DICE_ROLL = 12;
 
         public Dictionary<int, Player> Players { get; private set; }
-        public Dictionary<int, Property> GameBoard { get; private set; } 
+        public Dictionary<int, Property> GameBoard { get; private set; }
+        public List<Player> PlayerOrderList { get; private set; }
 
         public Game(Random random)
         {
@@ -23,6 +26,7 @@ namespace MonopolyCSharp
 
             Players = new Dictionary<int, Player>();
             GameBoard = new Dictionary<int, Property>();
+            PlayerOrderList = new List<Player>();
             CreateBoard();
         }
 
@@ -57,6 +61,25 @@ namespace MonopolyCSharp
                 return false;
 
             return true;
+        }
+
+        public void DeterminePlayerOrder()
+        {
+            foreach (var player in Players)
+            {
+                int roll = RollDice();
+
+                player.Value.turnIndex = roll;
+
+                PlayerOrderList.Add(player.Value);
+            }
+
+            PlayerOrderList.OrderByDescending(x => x.turnIndex);
+        }
+
+        public int RollDice()
+        {
+            return random.Next(1, MAX_DICE_ROLL + 1);
         }
     }
 }

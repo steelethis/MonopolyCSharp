@@ -8,6 +8,7 @@ namespace MonopolyCSharp
 {
     public class Player
     {
+        public int turnIndex { get; set; }
         public Property Location { get; set; }
         public string Name { get; private set; }
 
