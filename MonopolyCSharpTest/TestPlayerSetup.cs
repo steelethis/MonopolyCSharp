@@ -147,7 +147,6 @@ namespace MonopolyCSharpTest
             }
 
             Assert.AreEqual(true, expectedOrderDetected);
->>>>>>> f8e4ae89c1d4c2aae17454fc701f26a6a71ede78
         }
     }
 }
