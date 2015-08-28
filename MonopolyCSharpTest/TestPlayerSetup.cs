@@ -67,5 +67,26 @@ namespace MonopolyCSharpTest
 
             Assert.AreEqual(false, testGame.Start());
         }
+
+        /// <summary>
+        /// This test creates 100 games and ensures that the two players (horse, car) 
+        /// can be in different orders based on random dice rolls.
+        /// </summary>
+        [TestMethod]
+        public void TestPlayerOrder()
+        {
+
+            for (int i = 0; i < 100; i++)
+            {
+                Game testGame = new Game(random);
+
+                testGame.CreatePlayer(1, testPlayerNames[0]);
+                testGame.CreatePlayer(2, testPlayerNames[1]);
+
+                testGame.SetPlayerOrder();
+
+
+            }
+        }
     }
 }
