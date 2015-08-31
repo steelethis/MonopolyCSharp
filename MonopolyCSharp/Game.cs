@@ -19,6 +19,8 @@ namespace MonopolyCSharp
         public Dictionary<int, Player> Players { get; private set; }
         public Dictionary<int, Property> GameBoard { get; private set; }
         public List<Player> PlayerOrderList { get; private set; }
+        public Dictionary<int, int> RoundsPerPlayer { get; private set; }
+        public int RoundsPlayed { get; private set; }
 
         public Game(Random random)
         {
@@ -27,6 +29,8 @@ namespace MonopolyCSharp
             Players = new Dictionary<int, Player>();
             GameBoard = new Dictionary<int, Property>();
             PlayerOrderList = new List<Player>();
+            RoundsPerPlayer = new Dictionary<int, int>();
+            RoundsPlayed = 0;
             CreateBoard();
         }
 
@@ -41,6 +45,11 @@ namespace MonopolyCSharp
         public void CreatePlayer(int playerID, string playerName)
         {
             Players[playerID] = new Player(playerName, GameBoard[STARTING_LOCATION]);
+
+            foreach (var kvp in Players)
+            {
+                RoundsPerPlayer[kvp.Key] = 0;
+            }
         }
 
         public void MovePlayer(Player player, int roll)
