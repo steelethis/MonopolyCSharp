@@ -70,41 +70,19 @@ namespace MonopolyCSharpTest
         }
 
         /// <summary>
-<<<<<<< HEAD
-        /// This test creates 100 games and ensures that the two players (horse, car) 
-        /// can be in different orders based on random dice rolls.
+        /// Tests to see if the player orders [Horse, Car] and [Car, Horse] occur within 100 game creations.
         /// </summary>
         [TestMethod]
         public void TestPlayerOrder()
         {
+            // Player order {"Horse", "Car"}
+            bool playerOrder1Detected = false;
+            // Player order {"Car", "Horse"}
+            bool playerOrder2Detected = false;
 
             for (int i = 0; i < 100; i++)
             {
                 Game testGame = new Game(random);
-
-                testGame.CreatePlayer(1, testPlayerNames[0]);
-                testGame.CreatePlayer(2, testPlayerNames[1]);
-
-                testGame.SetPlayerOrder();
-
-
-            }
-=======
-        /// Tests player order creation.
-        /// Create a game with two players named Horse and Car. 
-        /// Within creating 100 games, both orders [Horse, Car] and [car, horse] occur.
-        /// 
-        /// This test is to determine if the player order [Horse, Car] shows up in 100 game creations.
-        /// </summary>
-        [TestMethod]
-        public void TestPlayerOrder1()
-        {
-            bool expectedOrderDetected = false;
-
-            for (int i = 0; i < 100; i++)
-            {
-                testGame = new Game(random);
-
                 testGame.CreatePlayer(1, "Horse");
                 testGame.CreatePlayer(2, "Car");
 
@@ -112,41 +90,17 @@ namespace MonopolyCSharpTest
 
                 if (testGame.PlayerOrderList[0].Name == "Horse" && testGame.PlayerOrderList[1].Name == "Car")
                 {
-                    expectedOrderDetected = true;
+                    playerOrder1Detected = true;
                 }
-            }
-
-            Assert.AreEqual(true, expectedOrderDetected);
-        }
-
-        /// <summary>
-        /// Tests player order creation.
-        /// Create a game with two players named Horse and Car. 
-        /// Within creating 100 games, both orders [Horse, Car] and [car, horse] occur.
-        /// 
-        /// This test is to determine if the player order [Car, Horse] shows up in 100 game creations.
-        /// </summary>
-        [TestMethod]
-        public void TestPlayerOrder2()
-        {
-            bool expectedOrderDetected = false;
-
-            for (int i = 0; i < 100; i++)
-            {
-                testGame = new Game(random);
-
-                testGame.CreatePlayer(1, "Horse");
-                testGame.CreatePlayer(2, "Car");
-
-                testGame.DeterminePlayerOrder();
 
                 if (testGame.PlayerOrderList[0].Name == "Car" && testGame.PlayerOrderList[1].Name == "Horse")
                 {
-                    expectedOrderDetected = true;
+                    playerOrder2Detected = true;
                 }
             }
 
-            Assert.AreEqual(true, expectedOrderDetected);
+            Assert.AreEqual(true, playerOrder1Detected);
+            Assert.AreEqual(true, playerOrder2Detected);
         }
     }
 }

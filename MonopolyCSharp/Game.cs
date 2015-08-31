@@ -74,7 +74,7 @@ namespace MonopolyCSharp
                 PlayerOrderList.Add(player.Value);
             }
 
-            PlayerOrderList.OrderByDescending(x => x.turnIndex);
+            PlayerOrderList = PlayerOrderList.OrderByDescending(i => i.turnIndex).ToList();
         }
 
         public int RollDice()
