@@ -51,7 +51,7 @@ namespace MonopolyCSharpTest
         {
             testGame.CreatePlayer(1, "testPlayer");
 
-            Assert.AreEqual(false, testGame.Start());
+            Assert.AreEqual(false, testGame.Play());
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace MonopolyCSharpTest
                 testGame.CreatePlayer(i, $"testPlayer {i}");
             }
 
-            Assert.AreEqual(false, testGame.Start());
+            Assert.AreEqual(false, testGame.Play());
         }
 
         /// <summary>

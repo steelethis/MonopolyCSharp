@@ -30,7 +30,7 @@ namespace MonopolyCSharpTest
         [TestMethod]
         public void TestSuccessfulGame()
         {
-            testGame.Start();
+            testGame.Play();
 
             Assert.AreEqual(20, testGame.RoundsPerPlayer[0]);
             Assert.AreEqual(20, testGame.RoundsPerPlayer[1]);

@@ -64,10 +64,24 @@ namespace MonopolyCSharp
             player.Location = GameBoard[newLocation];
         }
 
-        public bool Start()
+        public bool Play()
         {
+            // Game fails to run if you have less than 2 or more than 8 players.
             if(Players.Count < MIN_PLAYERS || Players.Count > MAX_PLAYERS)
                 return false;
+
+            while (RoundsPlayed < 20)
+            {
+                foreach (Player player in PlayerOrderList)
+                {
+                    PlayTurn(player);
+
+                    PlayerRoundPlayed(player);
+                }
+
+                RoundsPlayed++;
+            }
+
 
             return true;
         }
@@ -89,6 +103,46 @@ namespace MonopolyCSharp
         public int RollDice()
         {
             return random.Next(1, MAX_DICE_ROLL + 1);
+        }
+
+        private void PlayerRoundPlayed(Player player)
+        {
+            foreach (var kvp in Players)
+            {
+                if (kvp.Value.Name == player.Name)
+                {
+                    RoundsPerPlayer[kvp.Key]++;
+                }
+            }
+        }
+
+        // Untestable right now.
+        private void PlayTurn(Player player)
+        {
+            Console.WriteLine($"It is now {player.Name}'s turn.");
+
+            Console.WriteLine($"{player.Name} is currently located at {player.Location.PropertyName}");
+
+            Console.WriteLine(
+                $"What would you like to do? {Environment.NewLine}" +
+                $"\t- Roll Dice ('roll')"
+                );
+
+
+            string response = String.Empty;
+
+            response = Console.ReadLine();
+
+            switch (response.ToLower())
+            {
+                case "roll":
+                    MovePlayer(player, RollDice());
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input");
+                    PlayTurn(player);
+                    break;
+            }
         }
     }
 }
