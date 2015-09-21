@@ -16,6 +16,7 @@ namespace MonopolyCSharp
         public int Location { get; private set; }
         public string Name { get; private set; }
         public int TurnIndex { get; set; }
+        public int TurnsPlayed { get; private set; }
 
         public Player(Monopoly game, string gamePiece)
         {
@@ -35,6 +36,11 @@ namespace MonopolyCSharp
         public void UpdateLocation(int newLocation)
         {
             Location = newLocation;
+        }
+
+        public void UpdateTurnsPlayed()
+        {
+            TurnsPlayed++;
         }
     }
 }

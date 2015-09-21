@@ -11,6 +11,7 @@ namespace MonopolyCSharp
         public int BoardSize { get; private set; }
         public Queue<Player> PlayerQueue { get; private set; }
         public List<Player> PlayerList { get; private set; }
+        public int RoundsPlayed { get; private set; }
 
         // Random seed for the game.
         private Random random;
@@ -51,6 +52,20 @@ namespace MonopolyCSharp
         public int TurnRoll()
         {
             return random.Next(1, 13);
+        }
+
+        public void Play(int maxRounds)
+        {
+            RoundsPlayed = 0;
+            while (RoundsPlayed < maxRounds)
+            {
+                foreach (Player player in PlayerQueue)
+                {
+                    player.Move(TurnRoll());
+                    player.UpdateTurnsPlayed();
+                }
+                RoundsPlayed++;
+            }
         }
     }
 }

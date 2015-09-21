@@ -33,7 +33,23 @@ namespace MonopolyCSharpTest
         [TestMethod]
         public void TestPlayerTurns()
         {
-            Dictionary<Player, int> turnsPerPlayer = new Dictionary<Player, int>();
+            testGame.Play(20);
+
+            foreach (Player player in testGame.PlayerList)
+            {
+                Assert.AreEqual(20, player.TurnsPlayed);
+            }
+        }
+
+        /// <summary>
+        /// Test to ensure that 20 rounds are played overall.
+        /// </summary>
+        [TestMethod]
+        public void TestGameRoundsPlayed()
+        {
+            testGame.Play(20);
+
+            Assert.AreEqual(20, testGame.RoundsPlayed);
         }
     }
 }
